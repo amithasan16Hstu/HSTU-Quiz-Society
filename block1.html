@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HSTU Quiz Society</title>
+    <link rel="shortcut icon" href="images/HQS_logo.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        :root {
+            --primary-color: #2c7be5;
+            --primary-hover: #1a68d1;
+            --secondary-color: #00a0a0;
+            --dark-color: #12263f;
+            --light-color: #f8f9fa;
+            --text-color: #333;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .container {
+            width: 100%;
+            padding: 0 15px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 576px) {
+            .container {
+                max-width: 540px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                max-width: 720px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .container {
+                max-width: 960px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 1140px;
+            }
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: var(--box-shadow);
+            position: relative;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-brand img {
+            height: 50px;
+        }
+
+        .nav-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .nav-title span:first-child {
+            color: var(--dark-color);
+        }
+
+        .nav-title span:last-child {
+            color: var(--secondary-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 0.5rem 0;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        /* Standard Button Styles */
+        .standard-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 1.5;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Primary Button */
+        .standard-btn.primary {
+            background-color: var(--primary-color);
+            color: white;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .standard-btn.primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .standard-btn.primary:active {
+            transform: translateY(0);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .standard-btn .btn-icon {
+            font-size: 18px;
+        }
+        
+        /* Secondary Button */
+        .standard-btn.secondary {
+            background-color: white;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+        
+        .standard-btn.secondary:hover {
+            background-color: #f8f9fa;
+        }
+        
+        /* Disabled State */
+        .standard-btn:disabled {
+            background-color: #e9ecef;
+            color: #adb5bd;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* Loading State */
+        .standard-btn.loading .btn-text {
+            visibility: hidden;
+            opacity: 0;
+        }
+        
+        .standard-btn.loading::after {
+            content: "";
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            border: 3px solid transparent;
+            border-top-color: white;
+            border-radius: 50%;
+            animation: button-loading-spinner 1s ease infinite;
+        }
+        
+        @keyframes button-loading-spinner {
+            from {
+                transform: rotate(0turn);
+            }
+            to {
+                transform: rotate(1turn);
+            }
+        }
+
+        /* Dropdown Menu */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            box-shadow: var(--box-shadow);
+            border-radius: var(--border-radius);
+            padding: 0.5rem 0;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: var(--transition);
+            z-index: 100;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 0.5rem 1rem;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .dropdown-item:hover {
+            background-color: #f8f9fa;
+            color: var(--primary-color);
+        }
+
+        /* Submenu */
+        .dropdown-sub {
+            position: relative;
+        }
+
+        .sub-menu {
+            position: absolute;
+            left: 100%;
+            top: 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(10px);
+        }
+
+        .dropdown-sub:hover .sub-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* Banner Styles */
+        .banner {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 2rem;
+            padding: 3rem 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .banner-content {
+            flex: 1 1 400px;
+        }
+
+        .banner-image {
+            flex: 1 1 400px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+        }
+
+        .banner-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        .banner-title1 {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .banner-description {
+            margin-bottom: 2rem;
+            color: #555;
+        }
+
+        .banner-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* About Section */
+        .about {
+            padding: 4rem 0;
+            background-color: #f8f9fa;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--dark-color);
+        }
+
+        .section-description {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            color: #555;
+        }
+
+        .about-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .about-item {
+            background-color: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .about-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .item-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .item-description {
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        /* Skills Section */
+        .skills-section {
+            padding: 4rem 0;
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-card img {
+            height: 60px;
+            margin-bottom: 1rem;
+        }
+
+        .skill-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        .skill-description {
+            color: #666;
+        }
+
+        /* Events Section */
+        .events-section {
+            padding: 4rem 0;
+            background-color: #f8f9fa;
+        }
+
+        .resume-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .resume-column {
+            background-color: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .column-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary-color);
+            text-align: center;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #eee;
+        }
+
+        .experience {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .experience:last-child {
+            border-bottom: none;
+        }
+
+        .experience-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .experience-sub-title {
+            font-style: italic;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .experience-description {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        details {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            margin-top: 1rem;
+        }
+
+        summary {
+            font-weight: bold;
+            cursor: pointer;
+            outline: none;
+        }
+
+        details[open] summary {
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column {
+            padding: 0 1rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .footer-column p {
+            margin-bottom: 1rem;
+            color: #ccc;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-column a {
+            color: #ccc;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-column a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* Marquee Styles */
+        .welcome-message {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 0;
+            overflow: hidden;
+        }
+
+        .welcome-message marquee {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 400px;
+                height: 100vh;
+                background-color: white;
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                transition: var(--transition);
+                z-index: 1000;
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+                z-index: 1001;
+            }
+
+            .dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                padding-left: 1rem;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+            }
+
+            .dropdown:hover .dropdown-menu,
+            .dropdown-sub:hover .sub-menu {
+                max-height: 500px;
+            }
+
+            .sub-menu {
+                position: static;
+                transform: none;
+                padding-left: 1rem;
+            }
+
+            .banner-title {
+                font-size: 2rem;
+            }
+
+            .banner-title1 {
+                font-size: 1.25rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .banner {
+                padding: 2rem 0;
+                text-align: center;
+            }
+
+            .banner-content {
+                flex-basis: 100%;
+            }
+
+            .banner-image {
+                flex-basis: 100%;
+            }
+
+            .banner-buttons {
+                justify-content: center;
+            }
+
+            .about-items,
+            .skills-container,
+            .resume-container {
+                grid-template-columns: 1fr;
+            }
+
+            .resume-column {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .nav-title {
+                font-size: 1.25rem;
+            }
+
+            .banner-title {
+                font-size: 1.75rem;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="nav-container">
+                <div class="nav-brand">
+                    <img src="images/hqs.png" alt="HSTU Quiz Society Logo" class="logo">
+                    <h3 class="nav-title"><span>HSTU </span><span style="color: darkcyan;">Quiz </span>Society</h3>
+                </div>
+                
+                <div class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+                
+                <ul class="nav-menu">
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link">Events <i class="fa-solid fa-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#inter_faculty_quiz" class="dropdown-item">Inter Faculty Quiz Competition</a></li>
+                            <li><a href="special_day_quiz.html" class="dropdown-item">Special Day Quiz</a></li>
+                            <li><a href="quiz_master_recruitment.html" class="dropdown-item">Quiz Master Recruitment</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link">Executive Body <i class="fa-solid fa-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="president.html" class="dropdown-item">Advisor Panel</a></li>
+                            <li><a href="general_secretary.html" class="dropdown-item">Trustee-board</a></li>
+                            
+                            <li class="dropdown-sub">
+                                <a href="#" class="dropdown-item">Board Members <i class="fa-solid fa-caret-right"></i></a>
+                                <ul class="sub-menu">
+                                    <li><a href="committee1.html" class="dropdown-item">Committee-1</a></li>
+                                    <li><a href="committee2.html" class="dropdown-item">Committee-2</a></li>
+                                    <li><a href="committee3.html" class="dropdown-item">Committee-3</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="form.html" class="standard-btn primary">Login</a></li>
+                    <li class="nav-item">
+                        <a href="https://t.me/hstuqs" class="nav-link"><img src="images/tele2.png" alt="Telegram"></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        
+        <div class="welcome-message">
+            <marquee behavior="scroll" direction="left" scrollamount="10">
+                Welcome to HSTU Quiz Society! Join us for exciting quizzes, challenges, and a community of quiz enthusiasts. &nbsp;&nbsp;&nbsp;&nbsp;
+                Independence Day Quiz registration is closed!
+            </marquee>
+        </div>
+        
+        <div class="banner">
+            <div class="container">
+                <div class="banner-content">
+                    <h2 class="banner-title">Independence Day Quiz</h2>
+                    <h3 class="banner-title1">Know The Universe Through Knowledge</h3>
+                    <p class="banner-description">
+                        Independence Day Quiz 2025 🇧🇩 Test your knowledge and celebrate our nation's history with the HSTU Quiz Society! 
+                        Compete with the brightest minds and dive into thrilling rounds of questions! Experience an exciting battle of 
+                        intellect, patriotism, and fun as we honor Bangladesh's journey to freedom through quizzing!
+                    </p>
+                    <div class="banner-buttons">
+                        <button class="standard-btn primary">
+                            <span class="btn-icon"><i class="fas fa-info-circle"></i></span>
+                            <span class="btn-text">More Details</span>
+                        </button>
+                        <a href="https://docs.google.com/forms/d/1t2IFEi77Wqud366MynVAlkS-iUrw4w3T4Mr4qQcz4dk/preview" class="standard-btn primary">
+                            <span class="btn-icon"><i class="fas fa-user-plus"></i></span>
+                            <span class="btn-text">Register Now</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="banner-image">
+                    <img src="images/HSQ.jpg" alt="Independence Day Quiz Banner">
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <section id="about" class="about">
+            <div class="container">
+                <h3 class="section-title">About US</h3>
+                <p class="section-description">
+                    The HSTU Quiz Society (HQS) is a student-led organization at Hajee Mohammad Danesh Science and 
+                    Technology University (HSTU) that promotes a passion for knowledge and quizzing. It organizes 
+                    intra-university and inter-university quiz contests, helping students enhance their critical 
+                    thinking and problem-solving skills.
+                </p>
+                
+                <div class="about-items">
+                    <div class="about-item">
+                        <p class="item-title">Critical Thinking</p>
+                        <p class="item-description">
+                            <img src="images/smartphone.png" alt="Telegram Icon"> Telegram
+                        </p>
+                    </div>
+                    <div class="about-item">
+                        <p class="item-title">General Knowledge</p>
+                        <p class="item-description">
+                            <img src="images/map.png" alt="Location Icon"> Agriculture Building
+                        </p>
+                    </div>
+                    <div class="about-item">
+                        <p class="item-title">Public Speaking</p>
+                        <p class="item-description">
+                            <img src="images/map.png" alt="Location Icon"> Agriculture Building
+                        </p>
+                    </div>
+                    <div class="about-item">
+                        <p class="item-title">Teamwork & Collaboration</p>
+                        <p class="item-description">
+                            <img src="images/map.png" alt="Location Icon"> Agriculture Building
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="skills-section">
+            <div class="container">
+                <h3 class="section-title text-center">
+                    <span style="background-color: cadetblue; padding: 5px; border-radius: 8px;">Regular Events</span>
+                </h3>
+                <p class="section-description text-center">
+                    We organize various events throughout the year to engage students in intellectual activities 
+                    and promote knowledge sharing across different disciplines.
+                </p>
+
+                <div class="skills-container">
+                    <div class="skill-card">
+                        <img src="images/online.png" alt="Online Quiz Icon">
+                        <h4 class="skill-title">Online Quiz</h4>
+                        <p class="skill-description">
+                            Participate in our digital quiz competitions from anywhere. Test your knowledge against 
+                            peers in real-time with our interactive online platform.
+                        </p>
+                    </div>
+                    <div class="skill-card">
+                        <img src="images/offline.png" alt="Offline Quiz Icon">
+                        <h4 class="skill-title">Offline Quiz</h4>
+                        <p class="skill-description">
+                            Experience the thrill of live quizzing with buzzer rounds, visual challenges, and 
+                            face-to-face competition in our auditorium events.
+                        </p>
+                    </div>
+                    <div class="skill-card">
+                        <img src="images/public-speaking (1).png" alt="Public Speaking Icon">
+                        <h4 class="skill-title">Public Speaking</h4>
+                        <p class="skill-description">
+                            Develop your oratory skills through our workshops and speaking competitions. Gain 
+                            confidence in presenting ideas clearly and effectively.
+                        </p>
+                    </div>
+                    <div class="skill-card">
+                        <img src="images/leadership.png" alt="Leadership Icon">
+                        <h4 class="skill-title">Leadership Growth</h4>
+                        <p class="skill-description">
+                            Take on organizational roles in our events to develop leadership qualities, team 
+                            management skills, and event planning expertise.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="events-section">
+            <div class="container">
+                <h3 class="section-title text-center">
+                    <span style="background-color: cadetblue; padding: 5px; border-radius: 8px;">Signature and Recruitment Events</span>
+                </h3>
+                
+                <div class="resume-container">
+                    <div class="resume-column">
+                        <h3 class="column-title">Signature Events</h3>
+                        <div class="experience">
+                            <h3 id="inter_faculty_quiz" class="experience-title">
+                                <img src="images/number-one.png" alt="Number One Icon"> Inter Faculty Quiz Competition
+                            </h3>
+                            <h5 class="experience-sub-title">Bridging Minds, Igniting Competition.</h5>
+                            <p class="experience-description">
+                                Our flagship annual event where faculties compete for intellectual supremacy. 
+                                Features multiple rounds testing diverse knowledge areas with prestigious trophies at stake.
+                            </p>
+                            <details>
+                                <summary>More Details</summary>
+                                <p>Event structure:</p>
+                                <ul>
+                                    <li>Preliminary written elimination round</li>
+                                    <li>Quarter-finals: Audio-visual rounds</li>
+                                    <li>Semi-finals: Rapid fire buzzer round</li>
+                                    <li>Grand finale: Mixed format challenge</li>
+                                </ul>
+                            </details>
+                        </div>
+                        
+                        <hr>
+                        
+                        <div class="experience">
+                            <h3 class="experience-title">
+                                <img src="images/number-2.png" alt="Number Two Icon"> Emerging Quiz Competition
+                            </h3>
+                            <h5 class="experience-sub-title">Rise to the Challenge, Unleash Your Potential.</h5>
+                            <p class="experience-description">
+                                Designed specifically for first and second year students to showcase their 
+                                quizzing talent. Focuses on fundamental knowledge with mentorship from senior quizzers.
+                            </p>
+                            <details>
+                                <summary>More Details</summary>
+                                <p>Event highlights:</p>
+                                <ul>
+                                    <li>Exclusive to junior students</li>
+                                    <li>Training sessions before competition</li>
+                                    <li>Certificates for all participants</li>
+                                    <li>Spotlight on emerging talent</li>
+                                </ul>
+                            </details>
+                        </div>
+                        
+                        <hr>
+                        
+                        <div class="experience">
+                            <h3 class="experience-title">
+                                <img src="images/number-3.png" alt="Number Three Icon"> Special Day Quiz Competition
+                            </h3>
+                            <h5 class="experience-sub-title">Celebrate Knowledge, Honor the Moment.</h5>
+                            <p class="experience-description">
+                                Themed quizzes organized on national and international important days to 
+                                commemorate historical events and raise awareness about significant issues.
+                            </p>
+                            <details>
+                                <summary>More Details</summary>
+                                <p>Regular special day quizzes:</p>
+                                <ul>
+                                    <li>Independence Day Quiz (March)</li>
+                                    <li>Victory Day Quiz (December)</li>
+                                    <li>International Mother Language Day Quiz (February)</li>
+                                    <li>Science Day Quiz (November)</li>
+                                </ul>
+                            </details>
+                        </div>
+                    </div>
+                    
+                    <div class="resume-column">
+                        <h3 class="column-title">Recruitment Events</h3>
+                        <div class="experience">
+                            <h3 class="experience-title">
+                                <img src="images/number-one.png" alt="Number One Icon"> Quiz Master
+                            </h3>
+                            <h5 class="experience-sub-title">Empowering Minds, Inspiring Excellence</h5>
+                            <p class="experience-description">
+                                Annual recruitment drive to select and train new quiz masters who will host 
+                                our events. Includes rigorous testing of question framing and presentation skills.
+                            </p>
+                            <details>
+                                <summary>More Details</summary>
+                                <p>Selection process:</p>
+                                <ul>
+                                    <li>Written test on general knowledge</li>
+                                    <li>Question framing assignment</li>
+                                    <li>Mock quiz hosting evaluation</li>
+                                    <li>Final interview with senior quiz masters</li>
+                                </ul>
+                            </details>
+                        </div>
+                        
+                        <hr>
+                        
+                        <div class="experience">
+                            <h3 class="experience-title">
+                                <img src="images/number-2.png" alt="Number Two Icon"> Quiz Leader
+                            </h3>
+                            <h5 class="experience-sub-title">Lead the Challenge, Inspire the Future.</h5>
+                            <p class="experience-description">
+                                Leadership positions for organizing and coordinating quiz events. Develop 
+                                organizational skills while managing teams and event logistics.
+                            </p>
+                            <details>
+                                <summary>More Details</summary>
+                                <p>Responsibilities include:</p>
+                                <ul>
+                                    <li>Event planning and coordination</li>
+                                    <li>Team management</li>
+                                    <li>Sponsorship acquisition</li>
+                                    <li>Public relations</li>
+                                </ul>
+                            </details>
+                        </div>
+                        
+                        <hr>
+                        
+                        <div class="experience">
+                            <h3 class="experience-title">
+                                <img src="images/number-3.png" alt="Number Three Icon"> Member Recruitment
+                            </h3>
+                            <h5 class="experience-sub-title">Join the Quest, Shape the Future.</h5>
+                            <p class="experience-description">
+                                Biannual membership drive welcoming new students to the society. Open to all 
+                                HSTU students passionate about quizzing and knowledge sharing.
+                            </p>
+                            <details>
+                                <summary>More Details</summary>
+                                <p>Member benefits:</p>
+                                <ul>
+                                    <li>Priority participation in events</li>
+                                    <li>Training workshops</li>
+                                    <li>Networking opportunities</li>
+                                    <li>Leadership development</li>
+                                </ul>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center" style="margin-top: 2rem;">
+                    <button class="standard-btn primary">
+                        <span class="btn-icon"><i class="fas fa-calendar-week"></i></span>
+                        <span class="btn-text">Events Memory</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h3>HSTU Quiz Society</h3>
+                    <p>
+                        Promoting knowledge and intellectual growth through quizzing activities at 
+                        Hajee Mohammad Danesh Science and Technology University.
+                    </p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/share/17XxrATjEp/?mibextid=wwXIfr" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://t.me/hstuqs" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#inter_faculty_quiz">Events</a></li>
+                        <li><a href="president.html">Executive Body</a></li>
+                        <li><a href="form.html">Member Login</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Agriculture Building, HSTU, Dinajpur</li>
+                        <li><i class="fas fa-envelope"></i> hstuquizsociety@edu.bd</li>
+                        <li><i class="fas fa-phone"></i> +880 1234 567890</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for event updates and quiz tips.</p>
+                    <form>
+                        <input type="email" placeholder="Your Email" required>
+                        <button type="submit" class="standard-btn primary">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 HSTU Quiz Society. All Rights Reserved.</p>
+                <p>Developed by Amit Hasan Sikder (CSE-21)</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            menuToggle.innerHTML = navMenu.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 992) {
+                    navMenu.classList.remove('active');
+                    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Sticky header on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            header.classList.toggle('sticky', window.scrollY > 50);
+        });
+
+        // Button loading state simulation
+        document.querySelectorAll('.standard-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                if (this.classList.contains('primary')) {
+                    this.classList.add('loading');
+                    setTimeout(() => {
+                        this.classList.remove('loading');
+                    }, 2000);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
